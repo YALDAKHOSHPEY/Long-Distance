@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery TV</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+
+        header, footer {
+            background-color: #c70101;
+            width: 100%;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .tv-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+            max-width: 100%; /* Ensure responsiveness */
+        }
+
+        .tv {
+            position: relative;
+            width: 90%; /* Adjust size to fit the image inside */
+            max-width: 800px; /* Max width for responsiveness */
+            height: auto;
+        }
+
+        .tv img {
+            width: 100%;
+            height: auto;
+            z-index: -1;
+        }
+
+        .tv-screen {
+            position: absolute;
+            top: 8%;
+            left: 25%;
+            width: 50%;
+            height: 75%; /* Adjust height to fit the TV image */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Hide overflow */
+        }
+
+        .tv-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Maintain aspect ratio */
+            object-position: center; /* Adjust to show center by default */
+        }
+
+        .tv-screen audio {
+            width: 100%;
+            margin-top: 20px; /* Add some space between the image and audio */
+        }
+
+        .tv-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tv-controls img {
+            width: 50px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .tv-controls img:hover {
+            transform: scale(1.1); /* Add a hover effect */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gallery TV</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="game.html">Game</a></li>
+                <li><a href="flower.html">Flower</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="tv-container">
+        <div class="tv">
+            <img src="./images/—Pngtree—tv cartoon clipart_8286017.png" alt="TV">
+            <div class="tv-screen">
+                <img id="tv-image" src="./images/love.jpg" alt="Gallery Image">
+                <audio id="tv-audio" controls>
+                    <source src="./music/Ariana Grande - the boy is mine.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+        <div class="tv-controls">
+            <img id="prev-btn" src="./images/previous.png" alt="Previous">
+            <img id="next-btn" src="./images/next.png" alt="Next">
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2022 Yalda. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const images = [
+            { src: './images/love.jpg', audio: './music/Ariana Grande - the boy is mine.mp3', position: 'top' },
+            { src: './images/dist.jpg', audio: './music/Beautiful Things.mp3', position: 'top' },
+            { src: './images/photo_2025-01-12_16-22-09.jpg', audio: './music/Rocio Durcal - Amor Eterno.mp3', position: 'center' },
+            { src: './images/photo_2025-01-12_16-22-17.jpg', audio: './music/Vals Peruano.mp3', position: 'top' }
+        ];
+
+        let currentIndex = 0;
+
+        const tvImage = document.getElementById('tv-image');
+        const tvAudio = document.getElementById('tv-audio');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function updateContent(index) {
+            tvImage.src = images[index].src;
+            tvImage.style.objectPosition = images[index].position;
+            tvAudio.src = images[index].audio;
+            tvAudio.play();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+            updateContent(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+            updateContent(currentIndex);
+        });
+
+        // Initialize with first image and audio
+        updateContent(currentIndex);
+
+    </script>
+</body>
+</html>
