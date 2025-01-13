@@ -138,8 +138,8 @@ footer p {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { transform: translateZ(0); }
+    to { transform: translateZ(0); }
 }
 
 canvas {
